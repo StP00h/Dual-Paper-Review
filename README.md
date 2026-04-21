@@ -7,42 +7,42 @@
 ## Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│  Step 1: EXPERT REVIEW GENERATION (High-End Model)             │
-│                                                                 │
-│  Upload paper_final.md to Gemini 3.1 Pro / GPT 5.x / Claude   │
+┌───────────────────────────────────────────────────────────────-──┐
+│  Step 1: EXPERT REVIEW GENERATION (High-End Model)               │
+│                                                                  │
+│  Upload paper_final.md to Gemini 3.1 Pro / GPT 5.x / Claude      │
 │  → Receive Detailed_Comments.md (structured peer-review feedback)│
-└────────────────────────┬────────────────────────────────────────┘
+└────────────────────────┬────────────────────────────────────────-┘
                          │
                          ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│  Step 2: DUAL-MODEL CONSENSUS REVIEW (Cheap Models)          │
+│  Step 2: DUAL-MODEL CONSENSUS REVIEW (Cheap Models)             │
 │                                                                 │
-│  ┌──────────────┐          ┌──────────────┐                    │
-│  │ Reviewer A   │          │ Reviewer B   │                    │
-│  │ (Academic    │◄────────►│ (Structure & │                    │
-│  │  Depth)      │  Score   │  Clarity)    │                    │
-│  └──────┬───────┘  Delta   └──────┬───────┘                    │
+│  ┌──────────────┐          ┌──────────────┐                     │
+│  │ Reviewer A   │          │ Reviewer B   │                     │
+│  │ (Academic    │◄────────►│ (Structure & │                     │
+│  │  Depth)      │  Score   │  Clarity)    │                     │
+│  └──────┬───────┘  Delta   └──────┬───────┘                     │
 │         │    ◄──────────────────► │                             │
-│         │         Round N          │                             │
-│         └───────────┬──────────────┘                             │
-│                     ▼                                            │
+│         │         Round N         │                             │
+│         └───────────┬─────────────┘                             │
+│                     ▼                                           │
 │         ┌───────────────────────┐                               │
-│         │ Consensus Scorecard +  │                               │
-│         │ Annotated Revision     │                               │
+│         │ Consensus Scorecard + │                               │
+│         │ Annotated Revision    │                               │
 │         │ Revision Plan         │                               │
 │         └───────────────────────┘                               │
-│                     │                                            │
-│         ◄──────────┴──────────►                                 │
-│              Up to 10 Rounds                                     │
+│                     │                                           │
+│         ◄─────────-─┴──────────►                                │
+│              Up to 10 Rounds                                    │
 └────────────────────────┬────────────────────────────────────────┘
                          │
                          ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│  Step 3: FINAL OUTPUT (Publication-Ready)                      │
+│  Step 3: FINAL OUTPUT (Publication-Ready)                       │
 │                                                                 │
-│  consensus-revision.md     ← Bold/strikethrough annotations      │
-│  consensus-scorecard.json  ← Machine-parseable scores            │
+│  consensus-revision.md     ← Bold/strikethrough annotations     │
+│  consensus-scorecard.json  ← Machine-parseable scores           │
 │  revision-plan.md         ← Numbered actionable directives      │
 │  negotiation-log.md       ← Full round-by-round trace           │
 └─────────────────────────────────────────────────────────────────┘
@@ -107,7 +107,7 @@ Choose the adapter that matches your execution environment:
 
 | Adapter | Best For | Model Routing |
 |---------|----------|--------------|
-| **oh-my-pi** | Dual-model setups (GLM + MiniMax via role aliases) | Different models per role |
+| **oh-my-pi** | Dual-model setups (GLM + MiniMax via role switching) | Different models per role |
 | **Claude Code** | Claude Code environments with subagent spawning | Same model for both reviewers |
 
 ---
@@ -235,7 +235,7 @@ Dual-Paper-Review/
 
 ## License
 
-**CC BY-NC 4.0** — Creative Commons Attribution-NonCommercial 4.0 International
+**[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)** — Creative Commons Attribution-NonCommercial 4.0 International
 
 This license was chosen intentionally for an academic tool:
 - **Non-commercial**: Prohibits use in commercial products or paid services
@@ -254,7 +254,7 @@ If Dual-Paper-Review contributed to your published work, cite it as:
   author    = {Xuao Li},
   title     = {Dual-Paper-Review: AI-Powered Triangulation Review for Academic Papers},
   year      = {2026},
-  url       = {https://github.com/your-username/dual-paper-review},
+  url       = {https://github.com/StP00h/Dual-Paper-Review},
   version   = {1.0},
   license   = {CC BY-NC 4.0}
 }
