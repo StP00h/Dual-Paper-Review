@@ -255,7 +255,6 @@ If Dual-Paper-Review contributed to your published work, cite it as:
   title     = {Dual-Paper-Review: AI-Powered Triangulation Review for Academic Papers},
   year      = {2026},
   url       = {https://github.com/your-username/dual-paper-review},
-  version   = {1.0},
   license   = {CC BY-NC 4.0}
 }
 ```

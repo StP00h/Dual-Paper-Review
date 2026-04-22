@@ -249,10 +249,10 @@ WHILE round <= 10:
 ### Phase 3: Final Output & Validation
 
 1. Select final consensus artifact (aligned round preferred; best-so-far otherwise)
-2. Run final comprehensive validation (all evidence quotes, peer comment coverage, actionable revision plan, hash recheck)
-3. Write final artifacts to `D-Review/final/`
-4. Write `negotiation-log.md`, `validation-report.json`, `status.json`
-5. Re-verify source file hashes — **CRITICAL**: if mismatch, halt and write error report
+2. **IMMEDIATELY before writing any final artifacts:** Re-verify source file hashes against `D-Review/hashes.json`. If mismatch → write `D-Review/errors/error-report.md` with `{"status": "hash_mismatch_error", "hash_mismatch": true}`, and **HALT** — do not produce any final output, do not write consensus-revision.md, do not write status.json as "consensus" or "best-effort"
+3. Run final comprehensive validation (all evidence quotes, peer comment coverage, actionable revision plan)
+4. Write final artifacts to `D-Review/final/` — only if hash check passed
+5. Write `negotiation-log.md`, `validation-report.json` (with `source_hash_verified: true`, `validation_passed: true`), `status.json` (with `source_hash_verified: true`) — only if hash check passed
 
 ---
 
@@ -377,6 +377,6 @@ Every prompt must explicitly forbid:
 3. **Independent Dual Review** — Run Reviewer A (`pi/default`) and Reviewer B (`pi/smol`) in parallel via reference prompts
 4. **Fence Validation** — Apply 3-layer checks; retry/fallback on failures
 5. **Consensus Negotiation Loop** — Run up to 10 rounds with alignment + revision plan convergence checks; stop on consensus/stagnation/cap
-6. **Finalization** — Select aligned or best-so-far consensus, run final validation, write deliverables
-7. **Source Hash Recheck** — Compare against `D-Review/hashes.json`; on mismatch halt with error report
+6. **Source Hash Pre-Check** — Before writing any final artifacts, compare source hashes against `D-Review/hashes.json`; on mismatch halt with error report — do NOT produce final output
+7. **Finalization** — Only after hash check passes: run final validation, write deliverables to `D-Review/final/`, write `validation-report.json` with `source_hash_verified: true` and `validation_passed: true`, write `status.json` with `source_hash_verified: true`
 8. **Trace & Exit** — Persist full trace, checkpoints, validation report, status

@@ -248,6 +248,7 @@ Re-verify:
 - Revision plan is specific and actionable (reject vague directives)
 - No hallucinated content
 - Source file hashes still match `D-Review/hashes.json` (CRITICAL CHECK)
+- `validation-report.json` must include a `source_hash_verified` boolean field set to `true` only if hashes match. If false, the entire validation-report.json must set `validation_passed: false` and include `"hash_mismatch": true`.
 
 ### 3.3: Write Final Deliverables
 
@@ -257,8 +258,12 @@ Write to `D-Review/final/`:
 - `revision-plan.md` — Numbered actionable directives
 - `change-summary.md` — Consolidated change summary
 - `negotiation-log.md` — Summary of all rounds
-- `validation-report.json` — Pass/fail per validation check
-- `status.json` — `{"status": "consensus"|"best-effort", "rounds_used": N, "final_overall_score": "X.X"}`
+- `validation-report.json` — Pass/fail per validation check. **MUST include:**
+  - `"source_hash_verified": true|false` — true only if all source hashes match
+  - `"validation_passed": true|false` — false if any critical check fails including hash mismatch
+  - `"hash_mismatch": true|false` — set to true if source hash does not match stored hash
+  - If `hash_mismatch` is true, `validation_passed` MUST be `false`
+- `status.json` — `{"status": "consensus"|"best-effort"|"hash_mismatch_error", "rounds_used": N, "final_overall_score": "X.X", "source_hash_verified": true|false}`. **If source hash mismatch is detected, `status` MUST be `"hash_mismatch_error"` — never `"consensus"` or `"best-effort"`**.
 
 ### 3.4: Final Source Hash Check
 

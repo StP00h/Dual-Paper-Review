@@ -169,3 +169,27 @@ Reviewer 2 annotated revision:
 {{REVIEWER_2_REVISION}}
 
 Begin consensus negotiation now.
+
+---
+
+## SECTION 10: OUTPUT BOUNDARY ENFORCEMENT
+
+**CRITICAL — READ BEFORE WRITING ANY OUTPUT:**
+
+Your consensus output MUST ONLY be written to the designated round directory inside the `D-Review/` output boundary. Specifically:
+
+| What | Where |
+|------|-------|
+| Reviewer A consensus artifact | `D-Review/rounds/round-{{ROUND_NUMBER}}/reviewer-a-consensus.md` |
+| Reviewer B consensus artifact | `D-Review/rounds/round-{{ROUND_NUMBER}}/reviewer-b-consensus.md` |
+
+**ABSOLUTELY PROHIBITED — never do any of the following:**
+- Write any consensus output to `paper_final.md` or any source file
+- Write consensus artifacts outside the `D-Review/` directory tree
+- Create files like `consensus_round{N}.md` or `round{N}_consensus.md` at the project root or in non-D-Review directories
+- Modify, overwrite, or replace the original paper file under any circumstance
+- Create symlinks from D-Review directory to source files or vice versa
+
+**Why this matters:** The original paper file is protected by SHA256 hash verification before and after processing. Any write to a source file will cause a hash mismatch that triggers a CRITICAL STOP, and your consensus output will be discarded. You are responsible for ensuring your output goes to the correct location.
+
+If you are unsure where to place your output, stop and report the uncertainty — do not guess.
